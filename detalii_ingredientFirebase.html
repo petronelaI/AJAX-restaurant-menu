@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		body {
+			background-color: #ccf5ff;
+			padding: 50px;
+		}
+
+		.contact {
+			background-color:#4da6ff;
+			color: white;
+			height: 40px;
+		}
+
+		.button_menu {
+			color: white;
+			background-color: #ff6699;
+			height: 40px;
+		}
+
+		h1 {
+			font-size: 40px;
+		}
+
+	</style>
+	<script>
+		var restaurant=[];
+		var indexDetalii = location.search.substring(4);
+			function getMeniu(){
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+				   restaurant = JSON.parse(this.responseText);
+				   deseneazaTabel();
+				}
+			};
+			xhttp.open("GET", `https://restaurant-1942e.firebaseio.com/${indexDetalii}.json`, true);
+			xhttp.send();
+			}
+
+			function deseneazaTabel(){
+				var str = "";
+					str += `<tr>  
+								<td> <div><img width="200" src="${restaurant.imagine}" display="block"></td></div><br />
+								<td><div><strong>${restaurant.nume}</strong></div><br />
+								    <div><i>${restaurant.reteta}</i></div><br />
+								</td>
+							</tr>`;	
+			
+			console.log(str);
+			document.querySelector("table").innerHTML=str;
+
+		}
+
+	</script>
+
+</head>
+<body>
+	<body onload="getMeniu();">
+		<div>
+			<h1>Cald si bun</h1>
+			<a href="contact.html"><button class="contact">Contact</button></a>
+			<a href="restaurantFirebase.html"><button class="button_menu">Meniu</button></a>
+		</div><br />
+		<table>
+		</table>
+	</body>
+</html>
