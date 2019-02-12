@@ -50,23 +50,22 @@
 
 	</style>
 	<script>
-		var restaurant=[];
+	var restaurant=[];
+	function getMeniu(){
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+			   restaurant = JSON.parse(this.responseText);
+			   deseneazaTabel();
+			}
+		};
+		xhttp.open("GET", "https://siit-bucuresti-e9cc6.firebaseio.com/.json", true);
+		xhttp.send();
+	}
 
-		function getMeniu(){
-				var xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function() {
-					if (this.readyState == 4 && this.status == 200) {
-					   restaurant = JSON.parse(this.responseText);
-					   deseneazaTabel();
-					}
-				};
-				xhttp.open("GET", "https://siit-bucuresti-e9cc6.firebaseio.com/.json", true);
-				xhttp.send();
-		}
-
-		function deseneazaTabel(){
-			var str = "";
-			var produse= document.getElementById("ingredient").value;
+	function deseneazaTabel(){
+	    var str = "";
+	    var produse= document.getElementById("ingredient").value;
             for(var i=0;i<restaurant.length;i++){	 
                 if(restaurant[i].ingrediente.indexOf(produse) > -1){
 					str += `<tr>
@@ -80,26 +79,24 @@
                                 <button class="detalii"><a href="detalii_ingredientFirebase.html?id=${i}">Detalii</a></button>
                             </td>
                     </tr>`;
-               	}
-            }
-				
-			console.log(str);
-			document.querySelector("table").innerHTML=str;
-		}
+              	}
+            }		
+	     console.log(str);
+	     document.querySelector("table").innerHTML=str;
+	}
 
 	</script>
 </head>
-<body>
-	<body onload="getMeniu();">
-		<div>
-			<h1>Cald si bun</h1>
-			<button class="contact"><a href="contact.html">Contact</a></button>
-		</div>
-		<div id="search_box">
-			<input id="ingredient" class="cauta_box" type="text">
-			<button class="cauta"onclick="deseneazaTabel();">Cauta in ingrediente</button>
-		</div></br>
-		<table>
-		</table>
-	</body>
+<body onload="getMeniu();">
+	<div>
+		<h1>Cald si bun</h1>
+		<button class="contact"><a href="contact.html">Contact</a></button>
+	</div>
+	<div id="search_box">
+		<input id="ingredient" class="cauta_box" type="text">
+		<button class="cauta"onclick="deseneazaTabel();">Cauta in ingrediente</button>
+	</div></br>
+	<table>
+	</table>
+</body>
 </html>
