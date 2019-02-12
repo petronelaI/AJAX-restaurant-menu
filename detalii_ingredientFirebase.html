@@ -35,23 +35,23 @@
 				   deseneazaTabel();
 				}
 			};
-			xhttp.open("GET", `https://restaurant-1942e.firebaseio.com/${indexDetalii}.json`, true);
+			xhttp.open("GET", `https://siit-bucuresti-e9cc6.firebaseio.com/${indexDetalii}.json`, true);
 			xhttp.send();
 			}
 
 			function deseneazaTabel(){
 				var str = "";
+				for(var i=0;i<restaurant.length;i++){
 					str += `<tr>  
 								<td> <div><img width="200" src="${restaurant.imagine}" display="block"></td></div><br />
 								<td><div><strong>${restaurant.nume}</strong></div><br />
 								    <div><i>${restaurant.reteta}</i></div><br />
 								</td>
 							</tr>`;	
-			
-			console.log(str);
-			document.querySelector("table").innerHTML=str;
-
-		}
+				}
+				console.log(str);
+				document.querySelector("table").innerHTML=str;
+			}
 
 	</script>
 
